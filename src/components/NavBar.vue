@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import 'element-plus/es/components/message/style/css';
 import 'element-plus/es/components/message-box/style/css';
 
 //data
-const active = ref(Number(JSON.parse(localStorage.getItem('active'))) || 1);
+const active = ref(window.location.href.includes('favorite') ? 2 : 1);
 
 //functions
 const activeOne = () => {
@@ -15,18 +15,28 @@ const activeTwo = () => {
   active.value = 2;
   localStorage.setItem('active', '2');
 };
+
+//Lifecycle hooks
+onMounted(()=>{
+  if(window.location.href.includes('favorite')){
+    activeTwo()
+  }else{
+    activeOne()
+  }
+})
+
 </script>
 
 <template>
   <div class="navigation-example">
     <div class="containerNav">
       <RouterLink to="/" class="td"
-        ><div :class="{ active: active === 1 }" @click="activeOne" class="left">
+        ><div :class="{ active: active===1}" @click="activeOne" class="left">
           <span class="text">Все котики</span>
         </div></RouterLink
       >
       <RouterLink to="/favorite" class="td"
-        ><div :class="{ active: active === 2 }" @click="activeTwo" class="right">
+        ><div :class="{ active: active===2 }" @click="activeTwo" class="right">
           <span class="text">Любимые котики</span>
         </div></RouterLink
       >
