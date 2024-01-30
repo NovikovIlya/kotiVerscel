@@ -17,7 +17,7 @@ const show = ref(false)
 <template >
   <div class="hh">
     <NavBar />
-    <RouterView  />
+    <RouterView :key="route.fullPath" />
   </div>
 </template>
 
