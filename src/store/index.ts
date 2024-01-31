@@ -12,11 +12,12 @@ export const useMovieStore = defineStore('movieStore', () => {
   const page = ref(0);
   const localLoad = ref(false);
 
+
+
+  //functions
   const setLocalad =()=>{
     localLoad.value = true
   }
-
-  //functions
   const load = () => {
     if (page.value === 1000) {
       alert('Последний страница');
