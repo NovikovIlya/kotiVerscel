@@ -10,6 +10,11 @@ export const useMovieStore = defineStore('movieStore', () => {
   const isLoading = ref(false);
   const isError = ref(false);
   const page = ref(0);
+  const localLoad = ref(false);
+
+  const setLocalad =()=>{
+    localLoad.value = true
+  }
 
   //functions
   const load = () => {
@@ -52,6 +57,8 @@ export const useMovieStore = defineStore('movieStore', () => {
     isError,
     load,
     getCats,
-    page
+    page,
+    setLocalad,
+    localLoad
   };
 });

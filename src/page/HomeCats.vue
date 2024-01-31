@@ -32,11 +32,12 @@ const deleteFavoriteCat = (person: Data) => {
 
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
-
+console.log(num.value)
 const load = () => {
   num.value++;
   if (num.value === 15) {
-    localLoad.value = true;
+    movieStore.setLocalad()
+    // localLoad.value = true;
   }
 };
 
@@ -59,7 +60,7 @@ onMounted(() => {
 <template>
     <div class="ww" style="width: 100%">
       <ul
-        v-show="localLoad"
+        v-show="movieStore.localLoad"
         v-infinite-scroll="movieStore.load"
         class="infinite-list"
         infinite-scroll-immediate="false">
@@ -89,7 +90,7 @@ onMounted(() => {
           </li>
         </TransitionGroup>
       </ul>
-      <div class="zaga" v-if="movieStore.isLoading || !localLoad">
+      <div  class="zaga" v-if="movieStore.isLoading || !movieStore.localLoad ">
         ...загружаем {{ movieStore.page === 1 ? null : 'еще' }} котиков...
         <el-progress v-show="num < 15" class="progress" :percentage="num * 7" />
       </div>
@@ -121,6 +122,8 @@ onMounted(() => {
   opacity: 0;
 }
 .zaga {
+  z-index: 0;
+  margin-top: 15px;
   width: 100%;
   text-align: center;
   margin-bottom: 30px;
