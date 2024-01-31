@@ -1,16 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useMovieStore } from './store';
-import { useRoute } from 'vue-router';
-
 import NavBar from './components/NavBar.vue';
-
-const route = useRoute()
-const movieStore = useMovieStore()
-
-const show = ref(false)
-
-
 </script>
 
 
