@@ -32,7 +32,7 @@ const deleteFavoriteCat = (person: Data) => {
 
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
-console.log(num.value)
+
 const load = () => {
   num.value++;
   if (num.value === 15) {
