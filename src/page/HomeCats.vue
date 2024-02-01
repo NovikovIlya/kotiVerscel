@@ -139,11 +139,17 @@ onMounted(() => {
 }
 .cat {
   position: relative;
+  height: 225px;
 }
-.catHover:hover {
+.cat:hover{
   box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
   scale: 1.1;
   transition: 1s;
+}
+.catHover:hover {
+  // box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
+  // scale: 1.1;
+  // transition: 1s;
 }
 .infinite-list-item {
   width: 225px;
@@ -160,8 +166,13 @@ onMounted(() => {
   position: absolute;
   bottom: 19px;
   right: 15px;
-  z-index: 1000;
+  z-index: 0;
   opacity: 0;
+}
+.heart:hover{
+  cursor: pointer;
+  transition: 1s;
+  background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?');
 }
 .fullheart {
   position: absolute;
@@ -169,6 +180,7 @@ onMounted(() => {
   right: 15px;
   z-index: 1000;
   visibility: hidden;
+  cursor: pointer;
 }
 .hiddenWatch {
   visibility: visible !important;
