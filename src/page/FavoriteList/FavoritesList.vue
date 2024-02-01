@@ -65,6 +65,7 @@ const deleteFavoriteCat = (person) => {
 .cat {
   position: relative;
   height: 225px;
+  transition: 1s;
   
 }
 .cat:hover{

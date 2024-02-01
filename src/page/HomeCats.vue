@@ -140,6 +140,7 @@ onMounted(() => {
 .cat {
   position: relative;
   height: 225px;
+  transition: 1s;
 }
 .cat:hover{
   box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
