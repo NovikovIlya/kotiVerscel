@@ -59,6 +59,7 @@ onMounted(()=>{
   width: 100%;
   display: flex;
   justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .left {
   /* margin-left: 62px; */
