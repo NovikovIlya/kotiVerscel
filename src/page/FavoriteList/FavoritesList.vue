@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { ElMessage } from 'element-plus'
 
 //data
 const cartItems = ref(JSON.parse(localStorage.getItem('persons')) || []);
 
 //functions
+const open1 = () => {
+  ElMessage('Котик был удален из "Любимых".')
+}
 const deleteFavoriteCat = (person) => {
+  open1()
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   const newPrew = prev.filter((item) => item.id !== person.id);
   localStorage.setItem('persons', JSON.stringify(newPrew));
@@ -19,7 +24,7 @@ const deleteFavoriteCat = (person) => {
     <ul class="infinite-list" infinite-scroll-immediate="false">
       <TransitionGroup name="fade">
         <li v-for="person of cartItems" :key="person.id" class="infinite-list-item">
-          <div @click="deleteFavoriteCat(person)" class="cat">
+          <div  class="cat">
             <img
               class="catHover"
               :src="
@@ -28,6 +33,7 @@ const deleteFavoriteCat = (person) => {
                   : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
               " />
             <img
+            @click="deleteFavoriteCat(person)"
               :class="{ hiddenWatch: false }"
               class="heart fullheart"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
@@ -103,7 +109,7 @@ const deleteFavoriteCat = (person) => {
 .catHover {
   width: 225px;
   height: 225px;
-  cursor: pointer;
+  /* cursor: pointer; */
   transition: 1s;
 }
 

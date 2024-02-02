@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useMovieStore } from '../store/index';
 import { Data } from '../types';
+import { ElMessage } from 'element-plus'
 
 // data
 const movieStore = useMovieStore();
@@ -19,20 +20,20 @@ const addFavortieCat = (person: Data) => {
     deleteFavoriteCat(person);
     return;
   }
+  open2()
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   prev.push(person);
   localStorage.setItem('persons', JSON.stringify(prev));
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
-
 const deleteFavoriteCat = (person: Data) => {
+  open1()
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   const newPrew = prev.filter((item) => item.id !== person.id);
   localStorage.setItem('persons', JSON.stringify(newPrew));
 
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
-
 const load = () => {
   num.value++;
   if (num.value === 15) {
@@ -40,6 +41,15 @@ const load = () => {
     // localLoad.value = true;
   }
 };
+const open1 = () => {
+  ElMessage('Котик был удален из "Любимых".')
+}
+const open2 = () => {
+  ElMessage({
+    message: 'Котик добавлен в "Любимые"!',
+    type: 'success',
+  })
+}
 
 /// computed
 const idArray = computed(() => {
@@ -69,7 +79,7 @@ onMounted(() => {
             v-for="(person, index) in movieStore.data"
             :key="person.id"
             class="infinite-list-item">
-            <div @click="addFavortieCat(person)" class="cat">
+            <div class="cat">
               <img
                 :onload="load"
                 @error="imageLoadOnError"
@@ -80,9 +90,11 @@ onMounted(() => {
                     : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
                 " />
               <img
+              @click="addFavortieCat(person)"
                 class="heart"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/d6150d99cc284d656b809a6f15e5bc9d6f0da1a4be517e7466a0dad9525bac06" />
               <img
+              @click="addFavortieCat(person)"
                 :class="{ hiddenWatch: idArray.includes(person.id) }"
                 class="fullheart"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
@@ -159,7 +171,7 @@ onMounted(() => {
 .catHover {
   width: 225px;
   height: 225px;
-  cursor: pointer;
+  
   transition: 1s;
 }
 
