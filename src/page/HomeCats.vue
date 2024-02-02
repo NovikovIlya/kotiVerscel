@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useMovieStore } from '../store/index';
 import { Data } from '../types';
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus';
 
 // data
 const movieStore = useMovieStore();
@@ -20,14 +20,14 @@ const addFavortieCat = (person: Data) => {
     deleteFavoriteCat(person);
     return;
   }
-  open2()
+  open2();
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   prev.push(person);
   localStorage.setItem('persons', JSON.stringify(prev));
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
 const deleteFavoriteCat = (person: Data) => {
-  open1()
+  open1();
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   const newPrew = prev.filter((item) => item.id !== person.id);
   localStorage.setItem('persons', JSON.stringify(newPrew));
@@ -37,19 +37,19 @@ const deleteFavoriteCat = (person: Data) => {
 const load = () => {
   num.value++;
   if (num.value === 15) {
-    movieStore.setLocalad()
+    movieStore.setLocalad();
     // localLoad.value = true;
   }
 };
 const open1 = () => {
-  ElMessage('Котик был удален из "Любимых".')
-}
+  ElMessage('Котик был удален из "Любимых".');
+};
 const open2 = () => {
   ElMessage({
     message: 'Котик добавлен в "Любимые"!',
     type: 'success',
-  })
-}
+  });
+};
 
 /// computed
 const idArray = computed(() => {
@@ -68,58 +68,52 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="ww" style="width: 100%">
-      <ul
-        v-show="movieStore.localLoad"
-        v-infinite-scroll="movieStore.load"
-        class="infinite-list"
-        infinite-scroll-immediate="false">
-        <TransitionGroup name="fade">
-          <li
-            v-for="(person, index) in movieStore.data"
-            :key="person.id"
-            class="infinite-list-item">
-            <div class="cat">
-              <img
-                :onload="load"
-                @error="imageLoadOnError"
-                class="catHover"
-                :src="
-                  person.url
-                    ? person.url
-                    : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
-                " />
-              <img
+  <div class="ww" style="width: 100%">
+    <ul
+      v-show="movieStore.localLoad"
+      v-infinite-scroll="movieStore.load"
+      class="infinite-list"
+      infinite-scroll-immediate="false">
+      <TransitionGroup name="fade">
+        <li v-for="(person, index) in movieStore.data" :key="person.id" class="infinite-list-item">
+          <div class="cat">
+            <img
+              :onload="load"
+              @error="imageLoadOnError"
+              class="catHover"
+              :src="
+                person.url
+                  ? person.url
+                  : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
+              " />
+            <img
               @click="addFavortieCat(person)"
-                class="heart"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d6150d99cc284d656b809a6f15e5bc9d6f0da1a4be517e7466a0dad9525bac06" />
-              <img
+              class="heart"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/d6150d99cc284d656b809a6f15e5bc9d6f0da1a4be517e7466a0dad9525bac06" />
+            <img
               @click="addFavortieCat(person)"
-                :class="{ hiddenWatch: idArray.includes(person.id) }"
-                class="fullheart"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
-            </div>
-          </li>
-        </TransitionGroup>
-      </ul>
-      <div  class="zaga" v-if="movieStore.isLoading || !movieStore.localLoad ">
-        ...загружаем {{ movieStore.page === 1 ? null : 'еще' }} котиков...
-        <el-progress v-show="num < 15" class="progress" :percentage="num * 7" />
-      </div>
-      <div class="err" v-if="movieStore.isError">
-        <el-col :sm="12" :lg="6">
-          <el-result
-            icon="error"
-            title="Произошла ошибка"
-            sub-title="Попробуйте пожалуйста позднее">
-          </el-result>
-        </el-col>
-      </div>
+              :class="{ hiddenWatch: idArray.includes(person.id) }"
+              class="fullheart"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
+          </div>
+        </li>
+      </TransitionGroup>
+    </ul>
+    <div class="zaga" v-if="movieStore.isLoading || !movieStore.localLoad">
+      ...загружаем {{ movieStore.page === 1 ? null : 'еще' }} котиков...
+      <el-progress v-show="num < 15" class="progress" :percentage="num * 7" />
     </div>
+    <div class="err" v-if="movieStore.isError">
+      <el-col :sm="12" :lg="6">
+        <el-result icon="error" title="Произошла ошибка" sub-title="Попробуйте пожалуйста позднее">
+        </el-result>
+      </el-col>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.progress{
+.progress {
   width: 20%;
   margin: 0 auto;
   margin-top: 10px;
@@ -154,7 +148,7 @@ onMounted(() => {
   height: 225px;
   transition: 1s;
 }
-.cat:hover{
+.cat:hover {
   box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
   scale: 1.1;
   transition: 1s;
@@ -171,7 +165,7 @@ onMounted(() => {
 .catHover {
   width: 225px;
   height: 225px;
-  
+
   transition: 1s;
 }
 
@@ -182,7 +176,7 @@ onMounted(() => {
   z-index: 0;
   opacity: 0;
 }
-.heart:hover{
+.heart:hover {
   cursor: pointer;
   transition: 1s;
   background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?');
@@ -195,6 +189,13 @@ onMounted(() => {
   visibility: hidden;
   cursor: pointer;
 }
+.heart:active {
+  transform: scale(3);
+}
+.fullheart:active {
+  transform: scale(1.2);
+}
+
 .hiddenWatch {
   visibility: visible !important;
 }
@@ -256,13 +257,13 @@ onMounted(() => {
   .infinite-list-item {
     width: 100%;
   }
-  .containerNav{
+  .containerNav {
     width: 100%;
   }
   .err {
     margin-top: 10px;
   }
-  .progress{
+  .progress {
     width: 40%;
   }
 }

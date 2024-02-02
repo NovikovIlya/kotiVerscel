@@ -127,6 +127,12 @@ const deleteFavoriteCat = (person) => {
   z-index: 1000;
   visibility: visible;
 }
+.heart:active{
+  transform: scale(2);
+}
+.fullheart:active {
+  transform: scale(2);
+}
 .hiddenWatch {
   visibility: visible !important;
 }
