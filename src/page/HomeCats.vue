@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watchEffect } from 'vue';
 import { useMovieStore } from '../store/index';
 import { Data } from '../types';
 import { ElMessage } from 'element-plus';
@@ -50,6 +50,13 @@ const open2 = () => {
     type: 'success',
   });
 };
+const open4 = () => {
+  ElMessage({
+    showClose: true,
+    message: 'Произошла ошибка, попробуйте позднее.',
+    type: 'error',
+  })
+}
 
 /// computed
 const idArray = computed(() => {
@@ -65,6 +72,13 @@ onMounted(() => {
     movieStore.load();
   }
 });
+
+//wathers
+watchEffect(()=>{
+  if(movieStore.isError){
+    open4()
+  }
+})
 </script>
 
 <template>
@@ -102,12 +116,6 @@ onMounted(() => {
     <div class="zaga" v-if="movieStore.isLoading || !movieStore.localLoad">
       ...загружаем {{ movieStore.page === 1 ? null : 'еще' }} котиков...
       <el-progress v-show="num < 15" class="progress" :percentage="num * 7" />
-    </div>
-    <div class="err" v-if="movieStore.isError">
-      <el-col :sm="12" :lg="6">
-        <el-result icon="error" title="Произошла ошибка" sub-title="Попробуйте пожалуйста позднее">
-        </el-result>
-      </el-col>
     </div>
   </div>
 </template>
@@ -236,6 +244,7 @@ onMounted(() => {
 }
 
 .err {
+
   display: flex;
   justify-content: center;
 }
