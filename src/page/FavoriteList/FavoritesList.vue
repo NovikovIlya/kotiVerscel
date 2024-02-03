@@ -191,7 +191,7 @@ const deleteFavoriteCat = (person) => {
   opacity: 0;
   transform: translateX(30px);
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1441px) {
   .containerNav,.infinite-list{
     width: 75% ;
   }
