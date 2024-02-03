@@ -93,6 +93,12 @@ onMounted(()=>{
   letter-spacing: 0.25px;
   text-align: center;
 }
+@media screen and (min-width: 1440px) {
+  .containerNav,.infinite-list{
+    width: 75% ;
+  }
+  
+}
 @media screen and (max-width: 600px) {
   .containerNav {
     width: 100%;
