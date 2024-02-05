@@ -128,10 +128,10 @@ const deleteFavoriteCat = (person) => {
   visibility: visible;
 }
 .heart:active{
-  transform: scale(2);
+  fill: #ff0606;
 }
 .fullheart:active {
-  transform: scale(2);
+  fill: #fa373781;
 }
 .hiddenWatch {
   visibility: visible !important;

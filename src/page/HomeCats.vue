@@ -102,13 +102,13 @@ watchEffect(()=>{
               " />
             <img
               @click="addFavortieCat(person)"
-              class="heart"
+              class="heart img1"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d6150d99cc284d656b809a6f15e5bc9d6f0da1a4be517e7466a0dad9525bac06" />
             <img
               @click="addFavortieCat(person)"
               :class="{ hiddenWatch: idArray.includes(person.id) }"
-              class="fullheart"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
+              class="fullheart img2"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/57f8f8416d56f1fb4d21a351e293adfb8d589088f5464e5fee630fddbc7a9531?apiKey=aa18c0d3b3a34c28b7c8cdbd1f49d1ae&" />
           </div>
         </li>
       </TransitionGroup>
@@ -121,6 +121,13 @@ watchEffect(()=>{
 </template>
 
 <style scoped lang="scss">
+.img1{
+  fill: #f24e1e;
+}
+.img2{
+  fill: #ff3a00;
+
+}
 .progress {
   width: 20%;
   margin: 0 auto;
@@ -187,7 +194,8 @@ watchEffect(()=>{
 .heart:hover {
   cursor: pointer;
   transition: 1s;
-  background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?');
+  background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?apiKey=aa18c0d3b3a34c28b7c8cdbd1f49d1ae&');
+
 }
 .fullheart {
   position: absolute;
@@ -198,10 +206,11 @@ watchEffect(()=>{
   cursor: pointer;
 }
 .heart:active {
-  transform: scale(3);
+  fill: #ff0606;
+  // transform: scale(3);
 }
 .fullheart:active {
-  transform: scale(1.2);
+  // transform: scale(1.2);
 }
 
 .hiddenWatch {
