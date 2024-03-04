@@ -1,5 +1,5 @@
 export interface Data {
-  id: string
+  id: any;
   url: string
   width: number
   height: number

@@ -49,7 +49,7 @@ onMounted(()=>{
   text-decoration: none;
 }
 .containerNav {
-  width: 90%;
+  width: 1200px;
   display: flex;
 }
 .navigation-example {
@@ -61,9 +61,7 @@ onMounted(()=>{
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.left {
-  /* margin-left: 62px; */
-}
+
 .left,
 .right {
   display: flex;
@@ -93,12 +91,7 @@ onMounted(()=>{
   letter-spacing: 0.25px;
   text-align: center;
 }
-@media screen and (min-width: 1441px) {
-  .containerNav,.infinite-list{
-    width: 75% ;
-  }
-  
-}
+
 @media screen and (max-width: 600px) {
   .containerNav {
     width: 100%;

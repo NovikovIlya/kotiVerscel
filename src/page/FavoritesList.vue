@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { ElMessage } from 'element-plus'
+import { ref } from 'vue';
+import { ElMessage } from 'element-plus';
 
 //data
 const cartItems = ref(JSON.parse(localStorage.getItem('persons')) || []);
 
 //functions
 const open1 = () => {
-  ElMessage('Котик был удален из "Любимых".')
-}
+  ElMessage('Котик был удален из "Любимых".');
+};
+
+const addFavortieCat = (person) => {
+  deleteFavoriteCat(person);
+};
+
 const deleteFavoriteCat = (person) => {
-  open1()
+  open1();
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
   const newPrew = prev.filter((item) => item.id !== person.id);
   localStorage.setItem('persons', JSON.stringify(newPrew));
-
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
 </script>
@@ -24,20 +28,7 @@ const deleteFavoriteCat = (person) => {
     <ul class="infinite-list" infinite-scroll-immediate="false">
       <TransitionGroup name="fade">
         <li v-for="person of cartItems" :key="person.id" class="infinite-list-item">
-          <div  class="cat">
-            <img
-              class="catHover"
-              :src="
-                person.url
-                  ? person.url
-                  : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
-              " />
-            <img
-            @click="deleteFavoriteCat(person)"
-              :class="{ hiddenWatch: false }"
-              class="heart fullheart"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?" />
-          </div>
+          <ListCats :person="person" @addFavortieCat="addFavortieCat" />
         </li>
       </TransitionGroup>
     </ul>
@@ -78,7 +69,6 @@ const deleteFavoriteCat = (person) => {
   line-height: 21px;
   letter-spacing: 0.25px;
 }
-
 .watch {
   visibility: visible;
 }
@@ -92,11 +82,7 @@ const deleteFavoriteCat = (person) => {
   scale: 1.1;
   transition: 1s;
 }
-/* .catHover:hover{
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  scale: 1.1;
-  transition: 1s
-} */
+
 .infinite-list-item {
   width: 225px;
   height: 225px;
@@ -109,7 +95,6 @@ const deleteFavoriteCat = (person) => {
 .catHover {
   width: 225px;
   height: 225px;
-  /* cursor: pointer; */
   transition: 1s;
 }
 
@@ -127,7 +112,7 @@ const deleteFavoriteCat = (person) => {
   z-index: 1000;
   visibility: visible;
 }
-.heart:active{
+.heart:active {
   fill: #ff0606;
 }
 .fullheart:active {
@@ -158,7 +143,8 @@ const deleteFavoriteCat = (person) => {
   padding-left: 3%;
   padding-right: 3%;
   list-style: none;
-  width: 90%;
+  width: 1200px;
+  gap: 4px;
   padding: 0;
 }
 .infinite-list .infinite-list-item {
@@ -190,12 +176,6 @@ const deleteFavoriteCat = (person) => {
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
-}
-@media screen and (min-width: 1441px) {
-  .containerNav,.infinite-list{
-    width: 75% ;
-  }
-  
 }
 
 @media screen and (max-width: 600px) {

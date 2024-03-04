@@ -7,7 +7,6 @@ import { ElMessage } from 'element-plus';
 // data
 const movieStore = useMovieStore();
 const cartItems = ref(JSON.parse(localStorage.getItem('persons')) || []);
-const localLoad = ref(false);
 const num = ref(0);
 
 // functions
@@ -26,6 +25,7 @@ const addFavortieCat = (person: Data) => {
   localStorage.setItem('persons', JSON.stringify(prev));
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
+
 const deleteFavoriteCat = (person: Data) => {
   open1();
   const prev = JSON.parse(localStorage.getItem('persons')) || [];
@@ -34,6 +34,7 @@ const deleteFavoriteCat = (person: Data) => {
 
   cartItems.value = JSON.parse(localStorage.getItem('persons')) || [];
 };
+
 const load = () => {
   num.value++;
   if (num.value === 15) {
@@ -41,22 +42,25 @@ const load = () => {
     // localLoad.value = true;
   }
 };
+
 const open1 = () => {
   ElMessage('Котик был удален из "Любимых".');
 };
+
 const open2 = () => {
   ElMessage({
     message: 'Котик добавлен в "Любимые"!',
     type: 'success',
   });
 };
+
 const open4 = () => {
   ElMessage({
     showClose: true,
     message: 'Произошла ошибка, попробуйте позднее.',
     type: 'error',
-  })
-}
+  });
+};
 
 /// computed
 const idArray = computed(() => {
@@ -74,11 +78,11 @@ onMounted(() => {
 });
 
 //wathers
-watchEffect(()=>{
-  if(movieStore.isError){
-    open4()
+watchEffect(() => {
+  if (movieStore.isError) {
+    open4();
   }
-})
+});
 </script>
 
 <template>
@@ -90,26 +94,15 @@ watchEffect(()=>{
       infinite-scroll-immediate="false">
       <TransitionGroup name="fade">
         <li v-for="(person, index) in movieStore.data" :key="person.id" class="infinite-list-item">
-          <div class="cat">
-            <img
-              :onload="load"
-              @error="imageLoadOnError"
-              class="catHover"
-              :src="
-                person.url
-                  ? person.url
-                  : 'https://myivancrismanalo.files.wordpress.com/2017/10/cropped-unknown_person.png'
-              " />
-            <img
-              @click="addFavortieCat(person)"
-              class="heart img1"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/d6150d99cc284d656b809a6f15e5bc9d6f0da1a4be517e7466a0dad9525bac06" />
-            <img
-              @click="addFavortieCat(person)"
-              :class="{ hiddenWatch: idArray.includes(person.id) }"
-              class="fullheart img2"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/57f8f8416d56f1fb4d21a351e293adfb8d589088f5464e5fee630fddbc7a9531?apiKey=aa18c0d3b3a34c28b7c8cdbd1f49d1ae&" />
-          </div>
+          <ListCats
+            :person="person"
+            :index="index"
+            :imageLoadOnError="imageLoadOnError"
+            :load="load"
+            :idArray="idArray"
+            @addFavortieCat="addFavortieCat"
+            @deleteFavoriteCat="deleteFavoriteCat"
+             />
         </li>
       </TransitionGroup>
     </ul>
@@ -121,12 +114,11 @@ watchEffect(()=>{
 </template>
 
 <style scoped lang="scss">
-.img1{
+.img1 {
   fill: #f24e1e;
 }
-.img2{
+.img2 {
   fill: #ff3a00;
-
 }
 .progress {
   width: 20%;
@@ -168,11 +160,7 @@ watchEffect(()=>{
   scale: 1.1;
   transition: 1s;
 }
-.catHover:hover {
-  // box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
-  // scale: 1.1;
-  // transition: 1s;
-}
+
 .infinite-list-item {
   width: 225px;
   height: 225px;
@@ -180,7 +168,6 @@ watchEffect(()=>{
 .catHover {
   width: 225px;
   height: 225px;
-
   transition: 1s;
 }
 
@@ -195,7 +182,6 @@ watchEffect(()=>{
   cursor: pointer;
   transition: 1s;
   background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/45cce83542570fa99a82a171165d936e831b1ca10784f6b2df86696116852751?apiKey=aa18c0d3b3a34c28b7c8cdbd1f49d1ae&');
-
 }
 .fullheart {
   position: absolute;
@@ -207,10 +193,6 @@ watchEffect(()=>{
 }
 .heart:active {
   fill: #ff0606;
-  // transform: scale(3);
-}
-.fullheart:active {
-  // transform: scale(1.2);
 }
 
 .hiddenWatch {
@@ -233,8 +215,12 @@ watchEffect(()=>{
   padding-left: 3%;
   padding-right: 3%;
   list-style: none;
-  width: 90%;
+  width: 1200px;
+  gap: 4px;
   padding: 0;
+}
+.containerNav {
+  width: 1200px;
 }
 .infinite-list .infinite-list-item {
   display: flex;
@@ -253,7 +239,6 @@ watchEffect(()=>{
 }
 
 .err {
-
   display: flex;
   justify-content: center;
 }
@@ -267,12 +252,7 @@ watchEffect(()=>{
   opacity: 0;
   transform: translateX(30px);
 }
-@media screen and (min-width: 1441px) {
-  .containerNav,.infinite-list{
-    width: 75% ;
-  }
-  
-}
+
 
 @media screen and (max-width: 600px) {
   .infinite-list {

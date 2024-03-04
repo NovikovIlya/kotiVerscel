@@ -26,7 +26,7 @@ export const useMovieStore = defineStore('movieStore', () => {
     page.value++;
     getCats(page);
   };
-  const getCats = async (page) => {
+  const getCats = async (page:any) => {
     try {
       isError.value = false;
       isLoading.value = true;

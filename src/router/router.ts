@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Vue from 'vue';
 import HomeCats from '../page/HomeCats.vue';
-import FavoriteList from '../page/FavoriteList/FavoritesList.vue';
+import FavoriteList from '../page/FavoritesList.vue';
 import NotFound from '../page/NotFound.vue'
 
 
